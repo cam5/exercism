@@ -2,13 +2,15 @@ var words = function(input) {
 
     // Common punctuation from latin block & latin supplement blocks
     // http://bit.ly/Yf54Uq & http://bit.ly/1Cpv1j5
-    this.punctuation = /[\u0020-\u0040\u005b-\u0060\u007b-\u007e\u00a0-\u00bf]/g;
+    this.punctuation = /[\u0021-\u0040\u005b-\u0060\u007b-\u007e\u00a0-\u00bf]/g;
+    // http://bit.ly/1suY6bC
+    this.whiteSpaces    = /[\u0020\u000a-\u000d\u0085\u2028\u2029]/g;
 
-    this.breakUpBySpaces = function(input) {
+    this.breakUpWords = function(input) {
         if (/[^[A-z]+$]/.test(input)) {
             return [];
         } else {
-            return input.split(' ');
+            return input.split(this.whiteSpaces);
         }
     }
 
@@ -34,7 +36,7 @@ var words = function(input) {
     }
 
     this.processString = function(input) {
-        wordArray = breakUpBySpaces(input);
+        wordArray = breakUpWords(input);
         wordArray = normalizeCase(filterNonWords(wordArray));
         return wordArray;
     }
