@@ -1,5 +1,8 @@
 var words = function(input) {
 
+    this.crillic    = "\u0400-\u04FF";
+    this.diacritics = "ÁáĆćÉéÍíĹĺŃńÓóŔŕŚśÚúÝýŹźŐőŰűÀàÈèÌìÒòÙùÂâĈĉÊêĜĝĤĥÎîĴĵÔôŜŝÛûŴŵŶŷÄäËëÏïÖöÜüǖǘǚǜŸÿÃãẼẽĨĩÑñÕõŨũỸỹÇçĢģĶķĻļŅņŖŗŞşŢţǍǎČčĎďĚěǏǐĽľŇňǑǒŘřŠšŤťǓǔŽžĂăĔĕĞğĬĭŎŏŬŭĀāĒēĪīŌōŪūȲȳǢǣĊċĖėĠġİıŻżḌḍḤḥḶḷḸḹṂṃṆṇṚṛṜṝṢṣṬṭÅåŮůĄąĘęĮįǪǫŲųĐđĦħŁłĿŀ";
+
     this.breakUpBySpaces = function(input) {
         if (/[^[A-z]+$]/.test(input)) {
             return [];
@@ -13,7 +16,11 @@ var words = function(input) {
             return false;
         } else {
             for (var i = array.length - 1; i >= 0; i--) {
-                array[i] = array[i].replace(/\W+/, '');
+                array[i] = array[i].replace(
+                    new RegExp('[^A-z|' + 
+                        this.crillic + '|' + 
+                        this.diacritics + ']', 'g'
+                    ), '');
                 if (array[i] == '') {
                     array.splice(i, 1);
                 }
@@ -38,8 +45,7 @@ var words = function(input) {
     this.getWordCounts = function(array) {
         words = {};
         for (var i = array.length - 1; i >= 0; i--) {
-            if (array[i] === 'constructor') { words.constructor = 1; }
-            if (typeof(words[array[i]]) !== 'undefined') {
+            if (typeof(words[array[i]]) == 'number') { // guard against reserved words
                 words[array[i]]++;
             } else {
                 words[array[i]] = 1;
