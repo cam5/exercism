@@ -1,7 +1,8 @@
 var words = function(input) {
 
-    this.crillic    = "\u0400-\u04FF";
-    this.diacritics = "ÁáĆćÉéÍíĹĺŃńÓóŔŕŚśÚúÝýŹźŐőŰűÀàÈèÌìÒòÙùÂâĈĉÊêĜĝĤĥÎîĴĵÔôŜŝÛûŴŵŶŷÄäËëÏïÖöÜüǖǘǚǜŸÿÃãẼẽĨĩÑñÕõŨũỸỹÇçĢģĶķĻļŅņŖŗŞşŢţǍǎČčĎďĚěǏǐĽľŇňǑǒŘřŠšŤťǓǔŽžĂăĔĕĞğĬĭŎŏŬŭĀāĒēĪīŌōŪūȲȳǢǣĊċĖėĠġİıŻżḌḍḤḥḶḷḸḹṂṃṆṇṚṛṜṝṢṣṬṭÅåŮůĄąĘęĮįǪǫŲųĐđĦħŁłĿŀ";
+    // Common punctuation from latin block & latin supplement blocks
+    // http://bit.ly/Yf54Uq & http://bit.ly/1Cpv1j5
+    this.punctuation = /[\u0020-\u0040\u005b-\u0060\u007b-\u007e\u00a0-\u00bf]/g;
 
     this.breakUpBySpaces = function(input) {
         if (/[^[A-z]+$]/.test(input)) {
@@ -16,11 +17,7 @@ var words = function(input) {
             return false;
         } else {
             for (var i = array.length - 1; i >= 0; i--) {
-                array[i] = array[i].replace(
-                    new RegExp('[^A-z|' + 
-                        this.crillic + '|' + 
-                        this.diacritics + ']', 'g'
-                    ), '');
+                array[i] = array[i].replace(this.punctuation, '');
                 if (array[i] == '') {
                     array.splice(i, 1);
                 }
