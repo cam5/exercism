@@ -1,2 +1,2 @@
 def hello(name=''):
-    pass
+    return 'Hello, World!' if name == "" else "Hello, " + name + "!"
