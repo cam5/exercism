@@ -1,8 +1,8 @@
 def verify(isbn):
     char_list = [d for d in list(isbn) if d != '-']
 
-    # don't allow lists of less than 9 digits
-    if (len(char_list) < 9):
+    # don't allow lists of less than 10 digits
+    if (len(char_list) < 10):
         return False
 
     # Replace our check digit if it's an X
@@ -11,10 +11,7 @@ def verify(isbn):
 
     # If there's something other than a number at this point, it's invalid.
     for char in char_list:
-        print(char)
-        print(type(char) == 'str' and char.isalpha())
-        if type(char) == 'str' and False == char.isnumeric():
-            print('this one then')
+        if isinstance(char, str) and False == char.isnumeric():
             return False
 
     factor = 10
@@ -25,7 +22,5 @@ def verify(isbn):
     for digit in digit_list:
         val    = val + digit * factor
         factor = factor - 1
-
-    print(val)
 
     return 0 == (val % 11)
