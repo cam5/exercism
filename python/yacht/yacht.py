@@ -1,18 +1,26 @@
 # Score categories
 # Change the values as you see fit
 YACHT = 'Yacht'
-ONES = None
-TWOS = None
-THREES = None
-FOURS = None
-FIVES = None
-SIXES = None
+ONES = 'Ones'
+TWOS = 'Twos'
+THREES = 'Threes'
+FOURS = 'Fours'
+FIVES = 'Fives'
+SIXES = 'Sixes'
 FULL_HOUSE = None
 FOUR_OF_A_KIND = None
 LITTLE_STRAIGHT = None
 BIG_STRAIGHT = None
 CHOICE = None
 
+NUMBER_CATEGORY_DICT = {
+    ONES: 1,
+    TWOS: 2,
+    THREES: 3,
+    FOURS: 4,
+    FIVES: 5,
+    SIXES: 6
+}
 
 def score(dice, category):
     if (category == YACHT):
@@ -32,3 +40,10 @@ def score(dice, category):
                     break
 
         return 50 if check == True else 0
+
+    if (category in [ONES, TWOS, THREES, FOURS, FIVES, SIXES]):
+        target_num = NUMBER_CATEGORY_DICT[category]
+
+        return dice.count(target_num) * target_num
+
+
