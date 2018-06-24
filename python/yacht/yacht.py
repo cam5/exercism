@@ -9,8 +9,8 @@ FIVES = 'Fives'
 SIXES = 'Sixes'
 FULL_HOUSE = None
 FOUR_OF_A_KIND = None
-LITTLE_STRAIGHT = None
-BIG_STRAIGHT = None
+LITTLE_STRAIGHT = 'Little Straight'
+BIG_STRAIGHT = 'Big Straight'
 CHOICE = None
 
 NUMBER_CATEGORY_DICT = {
@@ -46,4 +46,8 @@ def score(dice, category):
 
         return dice.count(target_num) * target_num
 
+    if (category == BIG_STRAIGHT):
+        return 30 if [2, 3, 4, 5, 6] == sorted(dice) else 0
 
+    if (category == LITTLE_STRAIGHT):
+        return 30 if [1, 2, 3, 4, 5] == sorted(dice) else 0
