@@ -7,7 +7,7 @@ THREES = 'Threes'
 FOURS = 'Fours'
 FIVES = 'Fives'
 SIXES = 'Sixes'
-FULL_HOUSE = None
+FULL_HOUSE = 'Full House'
 FOUR_OF_A_KIND = None
 LITTLE_STRAIGHT = 'Little Straight'
 BIG_STRAIGHT = 'Big Straight'
@@ -51,3 +51,23 @@ def score(dice, category):
 
     if (category == LITTLE_STRAIGHT):
         return 30 if [1, 2, 3, 4, 5] == sorted(dice) else 0
+
+    if (category == FULL_HOUSE):
+        die_counter = {}
+        sum         = 0
+
+        for num in dice:
+            if not num in die_counter:
+                die_counter[num] = 1
+            else:
+                die_counter[num] += 1
+
+        for num, count in die_counter.items():
+            if not count == 2 and not count == 3:
+                return 0
+            sum += (num * count)
+
+        return sum
+
+
+
