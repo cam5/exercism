@@ -8,10 +8,10 @@ FOURS = 'Fours'
 FIVES = 'Fives'
 SIXES = 'Sixes'
 FULL_HOUSE = 'Full House'
-FOUR_OF_A_KIND = None
+FOUR_OF_A_KIND = 'Four of a Kind'
 LITTLE_STRAIGHT = 'Little Straight'
 BIG_STRAIGHT = 'Big Straight'
-CHOICE = None
+CHOICE = 'Choice'
 
 NUMBER_CATEGORY_DICT = {
     ONES: 1,
@@ -23,6 +23,17 @@ NUMBER_CATEGORY_DICT = {
 }
 
 def score(dice, category):
+    def die_totals(dice):
+        die_counter = {}
+
+        for num in dice:
+            if not num in die_counter:
+                die_counter[num] = 1
+            else:
+                die_counter[num] += 1
+
+        return die_counter
+
     if (category == YACHT):
         check    = True
         prev_num = 0
@@ -53,21 +64,24 @@ def score(dice, category):
         return 30 if [1, 2, 3, 4, 5] == sorted(dice) else 0
 
     if (category == FULL_HOUSE):
-        die_counter = {}
-        sum         = 0
-
-        for num in dice:
-            if not num in die_counter:
-                die_counter[num] = 1
-            else:
-                die_counter[num] += 1
+        die_counter = die_totals(dice)
+        total       = 0
 
         for num, count in die_counter.items():
             if not count == 2 and not count == 3:
                 return 0
-            sum += (num * count)
+            total += (num * count)
 
-        return sum
+        return total
 
+    if (category == CHOICE):
+        return sum(dice)
 
+    if (category == FOUR_OF_A_KIND):
+        die_counter = die_totals(dice)
 
+        for num, count in die_counter.items():
+            if count >= 4:
+                return 4 * num
+
+        return 0
