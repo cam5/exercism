@@ -5,24 +5,31 @@ def decode(string):
 
 
 def encode(string):
-    retval        = '';
-    current_count = 0;
-    current_char  = '';
-    total_count   = 1;
+    buffer_string = ''
+    prev_char     = ''
+    ret_val       = ''
+    total_count   = 1
 
     for l in string:
-        at_end = total_count == len(string)
+        at_end        = total_count == len(string)
+        new_character = False
 
-        if (not l == current_char and current_count > 0) or (at_end):
-            # Bump one more if we're all the way at the end, actually.
-            if (True == at_end):
-                current_count += 1
+        if (l != prev_char):
+            new_character = True
 
-            retval += '{0}{1}'.format(current_count, current_char)
-            current_count = 0;
+        if (False == new_character):
+            buffer_string += prev_char
 
-        current_count += 1
-        total_count   += 1
-        current_char   = l
+        if (True == new_character or at_end):
+            buffer_length = len(buffer_string)
 
-    return retval
+            if (0 == buffer_length):
+                ret_val += prev_char
+            else:
+                ret_val += '{0}{1}'.format((1 + buffer_length), prev_char)
+            buffer_string = ''
+
+        prev_char = l
+        total_count += 1
+
+    return ret_val
