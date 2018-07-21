@@ -1,35 +1,40 @@
-import re
-
 def decode(string):
     return string
 
 
 def encode(string):
-    buffer_string = ''
-    prev_char     = ''
-    ret_val       = ''
-    total_count   = 1
+    prev_letter = ''
+    prev_index  = 0
+    groups      = []
+    strlen      = len(string) - 1
 
-    for l in string:
-        at_end        = total_count == len(string)
+    for i in range(len(string)):
+        letter        = string[i];
         new_character = False
+        at_end        = (i == strlen)
 
-        if (l != prev_char):
+        if (letter != prev_letter):
             new_character = True
 
-        if (False == new_character):
-            buffer_string += prev_char
-
-        if (True == new_character or at_end):
-            buffer_length = len(buffer_string)
-
-            if (0 == buffer_length):
-                ret_val += prev_char
+        if (at_end):
+            if not (new_character):
+                groups.append(string[prev_index:(i + 1)])
             else:
-                ret_val += '{0}{1}'.format((1 + buffer_length), prev_char)
-            buffer_string = ''
+                groups.append(string[i])
 
-        prev_char = l
-        total_count += 1
+        if (new_character and 0 != i):
+            groups.append(string[prev_index:i])
+            prev_index  = i
 
-    return ret_val
+        prev_letter = letter
+
+    retval = ''
+
+    for g in groups:
+        char = g[0]
+        if (1 == len(g)):
+            retval += char
+        else:
+            retval += '{0}{1}'.format(len(g), char)
+
+    return retval
