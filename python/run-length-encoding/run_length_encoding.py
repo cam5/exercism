@@ -16,15 +16,15 @@ def encode(string):
         if (letter != prev_letter):
             new_character = True
 
+        if (new_character and 0 != i):
+            groups.append(string[prev_index:i])
+            prev_index  = i
+
         if (at_end):
             if not (new_character):
                 groups.append(string[prev_index:(i + 1)])
             else:
                 groups.append(string[i])
-
-        if (new_character and 0 != i):
-            groups.append(string[prev_index:i])
-            prev_index  = i
 
         prev_letter = letter
 
