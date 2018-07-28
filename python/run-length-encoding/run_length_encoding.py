@@ -1,5 +1,20 @@
+import re
+
 def decode(string):
-    return string
+    chunk  = re.compile(r'([\d+]*[\sA-z])')
+    pieces = [c for c in chunk.split(string) if c != '']
+    ret    = ''
+
+    for piece in pieces:
+        digit = re.search(r'^\d+', piece)
+        if (digit == None):
+            ret += piece
+        else:
+            char = piece.replace(digit.group(), '')
+            for num in range(int(digit.group())):
+                ret += char
+
+    return ret
 
 
 def encode(string):
