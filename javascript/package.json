@@ -1,0 +1,26 @@
+{
+  "name": "exercism",
+  "version": "1.0.0",
+  "description": "Javascript Path in Exercism",
+  "scripts": {
+    "test": "jasmine-node **/*.spec.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cam5/exercism.git"
+  },
+  "keywords": [
+    "code",
+    "tests",
+    "exercism"
+  ],
+  "author": "Cameron Hurd",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cam5/exercism/issues"
+  },
+  "homepage": "https://github.com/cam5/exercism#readme",
+  "dependencies": {
+    "jasmine-node": "^1.15.0"
+  }
+}
