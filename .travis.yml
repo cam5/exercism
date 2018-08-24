@@ -20,6 +20,8 @@ matrix:
           node_js:
               - "iojs"
               - "7"
+          before_install:
+              - cd javascript
           install:
               - npm install
           before_script:
