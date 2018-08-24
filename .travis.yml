@@ -24,5 +24,3 @@ matrix:
               - cd javascript
           install:
               - npm install
-          before_script:
-              - cd javascript
