@@ -20,7 +20,7 @@
     "url": "https://github.com/cam5/exercism/issues"
   },
   "homepage": "https://github.com/cam5/exercism#readme",
-  "dependencies": {
-    "jasmine-node": "^1.15.0"
+  "devDependencies": {
+    "jasmine-node": "latest"
   }
 }
