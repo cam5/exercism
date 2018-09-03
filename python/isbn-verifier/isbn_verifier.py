@@ -15,7 +15,7 @@ def verify(isbn):
 
     # If there's something other than a number at this point, it's invalid.
     for char in char_list:
-        if isinstance(char, str) and char.isnumeric() is False:
+        if isinstance(char, str) and char.isdigit() is False:
             return False
 
     factor = 10
