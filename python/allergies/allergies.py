@@ -26,6 +26,18 @@ class Allergies(object):
         """Lists the things that this Allergies list contains"""
         score = self._score
         allergies = []
+        unknown_allergens = []
+
+        # Ignore allergens we don't know about, up to 5 outside our current
+        # knowledge of them & their pattern. :)
+        for i in range(len(ALLERGY_LIST), (len(ALLERGY_LIST) + 5)):
+            unknown_allergens.append(2 ** i)
+
+        unknown_allergens.reverse()
+
+        for i in unknown_allergens:
+            if i < score:
+                score -= i
 
         for allergy, value in sorted(
                 ALLERGY_LIST.iteritems(),
@@ -35,5 +47,6 @@ class Allergies(object):
             # Ex. 34, 32
             if score >= value:
                 allergies.append(allergy)
+                score -= value
 
         return allergies
