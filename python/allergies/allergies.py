@@ -22,22 +22,33 @@ class Allergies(object):
         return item in self.lst
 
     @property
+    def allergy_vals(self):
+        return sorted(ALLERGY_LIST.values())
+
+    def remove_unknown_allergens(self, score):
+        """Normalizes a score, such that nothing we know for sure as another
+        allergen is calculated against."""
+        highest_known_allergy = self.allergy_vals[-1]
+        next_known_allergy = highest_known_allergy * 2
+
+        while score > highest_known_allergy and score > next_known_allergy:
+            """Keep calculating allergens until we exceed the score"""
+
+            while score > next_known_allergy:
+                # Go up by 1 step
+                next_known_allergy = next_known_allergy * 2
+
+            # Back up by 1 step
+            next_known_allergy = next_known_allergy / 2
+            score -= next_known_allergy
+
+        return score
+
+    @property
     def lst(self):
         """Lists the things that this Allergies list contains"""
-        score = self._score
+        score = self.remove_unknown_allergens(self._score)
         allergies = []
-        unknown_allergens = []
-
-        # Ignore allergens we don't know about, up to 5 outside our current
-        # knowledge of them & their pattern. :)
-        for i in range(len(ALLERGY_LIST), (len(ALLERGY_LIST) + 5)):
-            unknown_allergens.append(2 ** i)
-
-        unknown_allergens.reverse()
-
-        for i in unknown_allergens:
-            if i < score:
-                score -= i
 
         for allergy, value in sorted(
                 ALLERGY_LIST.iteritems(),
