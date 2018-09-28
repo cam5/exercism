@@ -1,15 +1,20 @@
 """Allergies Problem from exercism.io"""
 
-ALLERGY_LIST = {
-    'eggs': 1,
-    'peanuts': 2,
-    'shellfish': 4,
-    'strawberries': 8,
-    'tomatoes': 16,
-    'chocolate': 32,
-    'pollen': 64,
-    'cats': 128,
-}
+ALLERGY_LIST = (
+    'eggs',
+    'peanuts',
+    'shellfish',
+    'strawberries',
+    'tomatoes',
+    'chocolate',
+    'pollen',
+    'cats',
+)
+
+
+def dec_to_bin(decimal):
+    """Represent a decimal as binary, and strip off the 0b at front."""
+    return bin(decimal)[2:]
 
 class Allergies(object):
     """class to test allergies"""
@@ -22,42 +27,21 @@ class Allergies(object):
         return item in self.lst
 
     @property
-    def allergy_vals(self):
-        return sorted(ALLERGY_LIST.values())
-
-    def remove_unknown_allergens(self, score):
-        """Normalizes a score, such that nothing we know for sure as another
-        allergen is calculated against."""
-        highest_known_allergy = self.allergy_vals[-1]
-        next_known_allergy = highest_known_allergy * 2
-
-        while score > highest_known_allergy and score > next_known_allergy:
-            """Keep calculating allergens until we exceed the score"""
-
-            while score > next_known_allergy:
-                # Go up by 1 step
-                next_known_allergy = next_known_allergy * 2
-
-            # Back up by 1 step
-            next_known_allergy = next_known_allergy / 2
-            score -= next_known_allergy
-
-        return score
-
-    @property
     def lst(self):
-        """Lists the things that this Allergies list contains"""
-        score = self.remove_unknown_allergens(self._score)
+        """Lists the allergies that this Allergies class is allergic to"""
         allergies = []
 
-        for allergy, value in sorted(
-                ALLERGY_LIST.iteritems(),
-                key=lambda (k, v): (v, k),
-                reverse=True
-        ):
-            # Ex. 34, 32
-            if score >= value:
-                allergies.append(allergy)
-                score -= value
+        """List bits in same order as ALLERGY_LIST, and cast ints so they're
+        truthy or falsy"""
+        bit_list = [int(b) for b in reversed(dec_to_bin(self._score))]
+        position = 0
+
+        for bit in bit_list:
+            if bit:
+                try:
+                    allergies.append(ALLERGY_LIST[position])
+                except IndexError:
+                    pass
+            position += 1
 
         return allergies
