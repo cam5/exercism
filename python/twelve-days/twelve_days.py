@@ -1,47 +1,50 @@
 """12 Days of Christmas exercise from exercism.io"""
 
-BASE = "On the {} day of Christmas my true love gave to me, "
-VERSES = ["twelve Drummers Drumming, "
-          "eleven Pipers Piping, "
-          "ten Lords-a-Leaping, "
-          "nine Ladies Dancing, "
-          "eight Maids-a-Milking, "
-          "seven Swans-a-Swimming, "
-          "six Geese-a-Laying, "
-          "five Gold Rings, "
-          "four Calling Birds, "
-          "three French Hens, "
-          "two Turtle Doves, "
+BASE = "On the {} day of Christmas "
+VERSES = ["twelve Drummers Drumming, ",
+          "eleven Pipers Piping, ",
+          "ten Lords-a-Leaping, ",
+          "nine Ladies Dancing, ",
+          "eight Maids-a-Milking, ",
+          "seven Swans-a-Swimming, ",
+          "six Geese-a-Laying, ",
+          "five Gold Rings, ",
+          "four Calling Birds, ",
+          "three French Hens, ",
+          "two Turtle Doves, ",
           "a Partridge in a Pear Tree."]
 
 
 def num_to_suffixed_text(num):
     """Just a little lookup"""
     return ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh',
-            'eighth', 'ninth', 'tenth', 'eleventh', 'twelth'][-num]
+            'eighth', 'ninth', 'tenth', 'eleventh', 'twelfth'][num - 1]
 
-def get_verse(num, start_verse, end_verse):
-    output = ''
-    num -= num
+def get_verse(num):
+    output = []
 
-    if num > start_verse:
-        output += "\n\n"
+    output.append(BASE.format(num_to_suffixed_text(num)))
+    output.append("my true love gave to me, ")
 
-    output += BASE.format(num_to_suffixed_text(num))
+    for gift in range(1, num):
+        output.append(VERSES[gift])
 
-    for gift in VERSES[start_verse:end_verse]:
-        output += reversed(VERSES[gift])
+    if num == 1:
+        output.append('a Partridge in a Pear Tree.')
+    else:
+        output.append('and a Partridge in a Pear Tree.')
 
     return output
+
 
 def recite(start_verse, end_verse):
-    """Recite the twelfth day of christmas, given a start and end verse."""
-    output = ''
+    """Recite the day of christmas, given a start and end verse."""
+    verses = []
 
-    if (start_verse == end_verse):
-        output = get_verse(start_verse, start_verse, end_verse)
+    if start_verse == end_verse:
+        verses = get_verse(start_verse)
 
     for verse in range(start_verse, end_verse):
-        output += get_verse(verse, start_verse, end_verse)
+        verses += get_verse(verse)
 
-    return output
+    return verses
