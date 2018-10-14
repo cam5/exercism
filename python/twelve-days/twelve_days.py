@@ -12,7 +12,7 @@ VERSES = ["twelve Drummers Drumming, ",
           "four Calling Birds, ",
           "three French Hens, ",
           "two Turtle Doves, ",
-          "a Partridge in a Pear Tree."]
+          "and a Partridge in a Pear Tree."]
 
 
 def num_to_suffixed_text(num):
@@ -26,15 +26,18 @@ def get_verse(num):
     output.append(BASE.format(num_to_suffixed_text(num)))
     output.append("my true love gave to me, ")
 
-    for gift in range(1, num):
-        output.append(VERSES[gift])
-
     if num == 1:
         output.append('a Partridge in a Pear Tree.')
     else:
-        output.append('and a Partridge in a Pear Tree.')
+        for gift in range(num * -1, 0):
+            """
+            Second arg of range, `stop`, is "up to, but not including"
+            Therefore, if we access VERSES backwards (with -n notation),
+            stopping at -1 (the last element, then we get our verse.)
+            """
+            output.append(VERSES[gift])
 
-    return output
+    return ''.join(output)
 
 
 def recite(start_verse, end_verse):
@@ -42,9 +45,9 @@ def recite(start_verse, end_verse):
     verses = []
 
     if start_verse == end_verse:
-        verses = get_verse(start_verse)
+        verses.append(get_verse(start_verse))
 
     for verse in range(start_verse, end_verse):
-        verses += get_verse(verse)
+        verses.append(get_verse(verse))
 
     return verses
