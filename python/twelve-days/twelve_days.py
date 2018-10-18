@@ -46,8 +46,8 @@ def recite(start_verse, end_verse):
 
     if start_verse == end_verse:
         verses.append(get_verse(start_verse))
-
-    for verse in range(start_verse, end_verse):
-        verses.append(get_verse(verse))
+    else:
+        for verse in range(start_verse, end_verse + 1):
+            verses.append(get_verse(verse))
 
     return verses
