@@ -10,6 +10,9 @@ class Rational(object):
         self.numer = numer
         self.denom = denom
 
+        if self.numer == 0:
+            self.denom = 1
+
     def __eq__(self, other):
         return self.numer == other.numer and self.denom == other.denom
 
@@ -18,21 +21,38 @@ class Rational(object):
 
     def __add__(self, other):
         """
-        The sum of two rational numbers r1 = a1/b1 and r2 = a2/b2
-        is r1 + r2 =
-           a1/b1 + a2/b2 =
-           (a1 * b2 + a2 * b1) / (b1 * b2).
+        `r1 = a1/b1` and `r2 = a2/b2`
+        is
+        `r1 + r2 = a1/b1 + a2/b2 = (a1 * b2 + a2 * b1) / (b1 * b2)`.
         """
         if not isinstance(other, Rational):
             raise Exception("Not comparing two rational numbers!")
 
-        return Rational(
-            (self.numer * other.denom + other.numer + self.denom),
-            (self.denom * other.denom)
-        )
+        ret_numer = self.numer * other.denom + other.numer * self.denom
+        ret_denom = (self.denom * other.denom)
+
+        if self.denom == other.denom:
+            ret_denom = self.denom
+
+        return Rational(ret_numer, ret_denom)
 
     def __sub__(self, other):
-        pass
+        """
+        `r1 = a1/b1` and `r2 = a2/b2`
+        is
+        `r1 - r2 = a1/b1 - a2/b2 = (a1 * b2 - a2 * b1) / (b1 * b2)`.
+
+        """
+        if not isinstance(other, Rational):
+            raise Exception("Not comparing two rational numbers!")
+
+        ret_numer = self.numer * other.denom - other.numer * self.denom
+        ret_denom = (self.denom * other.denom)
+
+        if self.denom == other.denom:
+            ret_denom = self.denom
+
+        return Rational(ret_numer, ret_denom)
 
     def __mul__(self, other):
         pass
