@@ -61,7 +61,11 @@ class Rational(object):
         pass
 
     def __abs__(self):
-        pass
+        """
+        Return the "absolute" value of the object.
+        i.e. the absolute value of -1 is 1.
+        """
+        return Rational(abs(self.numer), abs(self.denom))
 
     def __pow__(self, power):
         pass
