@@ -58,7 +58,16 @@ class Rational(object):
         pass
 
     def __truediv__(self, other):
-        pass
+        """
+        See https://stackoverflow.com/q/29155829, it seems like this deserves
+        better understanding.
+        """
+        if not isinstance(other, Rational):
+            raise Exception("Not comparing two rational numbers!")
+
+        if (other.denom == 1 and other.numer == 1):
+            return self
+
 
     def __abs__(self):
         """
