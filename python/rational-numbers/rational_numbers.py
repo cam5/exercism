@@ -1,5 +1,6 @@
 """exercism.io rational-numbers problem"""
 from __future__ import division
+from math import gcd
 
 
 class Rational(object):
@@ -55,7 +56,19 @@ class Rational(object):
         return Rational(ret_numer, ret_denom)
 
     def __mul__(self, other):
-        pass
+        """
+        `r1 = a1/b1` and `r2 = a2/b2`
+        is
+        `r1 * r2 = (a1 * a2) / (b1 * b2)`.
+        """
+        if not isinstance(other, Rational):
+            raise Exception("Not comparing two rational numbers!")
+
+        numer = self.numer * self.denom
+        denom = other.numer * other.denom
+        greatest = gcd(numer, denom)
+
+        return Rational(numer / greatest, denom / greatest)
 
     def __truediv__(self, other):
         """
@@ -67,7 +80,6 @@ class Rational(object):
 
         if (other.denom == 1 and other.numer == 1):
             return self
-
 
     def __abs__(self):
         """
