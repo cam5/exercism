@@ -78,8 +78,19 @@ class Rational(object):
         if not isinstance(other, Rational):
             raise Exception("Not comparing two rational numbers!")
 
+        """
+        Dividing a rational number `r1 = a1/b1`
+                        by another `r2 = a2/b2` 
+        is `r1 / r2 = (a1 * b2) / (a2 * b1)`
+        (if `a2 * b1` is not zero.)
+        """
         if (other.denom == 1 and other.numer == 1):
             return self
+
+        if ((self.denom * other.numer) != 0):
+            numer = self.numer * other.denom
+            denom = self.denom * other.numer
+            return Rational(numer, denom)
 
     def __abs__(self):
         """
