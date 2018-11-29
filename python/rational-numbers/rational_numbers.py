@@ -80,7 +80,7 @@ class Rational(object):
 
         """
         Dividing a rational number `r1 = a1/b1`
-                        by another `r2 = a2/b2` 
+                        by another `r2 = a2/b2`
         is `r1 / r2 = (a1 * b2) / (a2 * b1)`
         (if `a2 * b1` is not zero.)
         """
@@ -90,6 +90,15 @@ class Rational(object):
         if ((self.denom * other.numer) != 0):
             numer = self.numer * other.denom
             denom = self.denom * other.numer
+
+            """
+            If the denominator is negative, don't represent it that way...
+            flip 'em
+            """
+            if (0 > denom):
+                numer = numer * -1
+                denom = abs(denom)
+
             return Rational(numer, denom)
 
     def __abs__(self):
