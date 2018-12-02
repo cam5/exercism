@@ -11,6 +11,14 @@ class Rational(object):
         self.numer = numer
         self.denom = denom
 
+        """
+        If the denominator is negative, don't represent it that way...
+        flip 'em
+        """
+        if (0 > denom):
+            self.numer = numer * -1
+            self.denom = abs(denom)
+
         if self.numer == 0:
             self.denom = 1
 
@@ -64,6 +72,12 @@ class Rational(object):
         if not isinstance(other, Rational):
             raise Exception("Not comparing two rational numbers!")
 
+        if (other.denom == 1 and other.numer == 1):
+            return self
+
+        if (0 == self.numer or 0 == other.numer):
+            return Rational(0, 1)
+
         numer = self.numer * self.denom
         denom = other.numer * other.denom
         greatest = gcd(numer, denom)
@@ -90,14 +104,6 @@ class Rational(object):
         if ((self.denom * other.numer) != 0):
             numer = self.numer * other.denom
             denom = self.denom * other.numer
-
-            """
-            If the denominator is negative, don't represent it that way...
-            flip 'em
-            """
-            if (0 > denom):
-                numer = numer * -1
-                denom = abs(denom)
 
             return Rational(numer, denom)
 
