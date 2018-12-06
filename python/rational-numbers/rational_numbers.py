@@ -8,8 +8,8 @@ class Rational(object):
     Class representing a rational number.
     """
     def __init__(self, numer, denom):
-        self.numer = numer
-        self.denom = denom
+        self.numer = int(numer)
+        self.denom = int(denom)
 
         """
         If the denominator is negative, don't represent it that way...
@@ -78,8 +78,8 @@ class Rational(object):
         if (0 == self.numer or 0 == other.numer):
             return Rational(0, 1)
 
-        numer = self.numer * self.denom
-        denom = other.numer * other.denom
+        numer = self.numer * other.numer
+        denom = self.denom * other.denom
         greatest = gcd(numer, denom)
 
         return Rational(numer / greatest, denom / greatest)
@@ -115,7 +115,15 @@ class Rational(object):
         return Rational(abs(self.numer), abs(self.denom))
 
     def __pow__(self, power):
-        pass
+        if power > 1:
+            product = self
+            for _ in list(range(1, power)):
+                product = product * self
+                print(product)
+
+            return product
+        else:
+            return self
 
     def __rpow__(self, base):
         pass
