@@ -119,9 +119,14 @@ class Rational(object):
             product = self
             for _ in list(range(1, power)):
                 product = product * self
-                print(product)
 
             return product
+        elif power == 0:
+            """
+            Good explanation of the to-the-power-of-0 rule
+            here: https://is.gd/7gTSlB
+            """
+            return Rational(1, 1)
         else:
             return self
 
