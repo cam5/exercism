@@ -1,6 +1,8 @@
 """exercism.io rational-numbers problem"""
-from __future__ import division
-from math import gcd
+try:
+    from math import gcd
+except ImportError:
+    from fractions import gcd
 
 
 def gcdize(rational):
