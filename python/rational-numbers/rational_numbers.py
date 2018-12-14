@@ -3,6 +3,15 @@ from __future__ import division
 from math import gcd
 
 
+def gcdize(rational):
+    if not isinstance(rational, Rational):
+        raise Exception("Can only greatest-common-denominatorize Rational")
+
+    gcd_denom = gcd(rational.numer, rational.denom)
+
+    return Rational((rational.numer / gcd_denom), (rational.denom / gcd_denom))
+
+
 class Rational(object):
     """
     Class representing a rational number.
@@ -23,7 +32,11 @@ class Rational(object):
             self.denom = 1
 
     def __eq__(self, other):
-        return self.numer == other.numer and self.denom == other.denom
+        gcd_self = gcdize(self)
+        gcd_other = gcdize(other)
+
+        return (gcd_self.numer == gcd_other.numer
+                and gcd_self.denom == gcd_other.denom)
 
     def __repr__(self):
         return '{}/{}'.format(self.numer, self.denom)
