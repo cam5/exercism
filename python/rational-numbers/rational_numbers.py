@@ -131,4 +131,13 @@ class Rational(object):
             return self
 
     def __rpow__(self, base):
-        pass
+        if (self.numer < 0):
+            """
+            I put this into wolfram alpha, and it said to represent it as
+            1 / base to power of the positive version of the fraction.
+
+            https://www.wolframalpha.com/input/?i=9%5E-0.5
+            """
+            return 1 / (base ** Rational(abs(self.numer), abs(self.denom)))
+
+        return base ** (self.numer / self.denom)
