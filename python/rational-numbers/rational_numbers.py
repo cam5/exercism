@@ -130,6 +130,12 @@ class Rational(object):
         return Rational(abs(self.numer), abs(self.denom))
 
     def __pow__(self, power):
+        """
+        Return the rational number to the power of something (exponents).
+        self ^ power
+
+        Just recursively multiply factors X number of times.
+        """
         if power > 1:
             product = self
             for _ in list(range(1, power)):
