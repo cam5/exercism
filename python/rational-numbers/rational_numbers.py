@@ -161,4 +161,4 @@ class Rational(object):
             """
             return 1 / (base ** Rational(abs(self.numer), abs(self.denom)))
 
-        return base ** (self.numer / self.denom)
+        return base ** (float(self.numer) / float(self.denom))
