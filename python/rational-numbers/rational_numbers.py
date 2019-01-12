@@ -6,6 +6,12 @@ except ImportError:
 
 
 def gcdize(rational):
+    """
+    Given a rational number, find its lowest-common-denominator, and also
+    divide the numerator by it.
+
+    Ex. rather than 5/10, return 1/2, or Rational(1, 2)
+    """
     if not isinstance(rational, Rational):
         raise Exception("Can only greatest-common-denominatorize Rational")
 
