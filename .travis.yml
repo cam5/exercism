@@ -23,3 +23,6 @@ matrix:
               - cd javascript
           install:
               - npm install
+branches:
+    only:
+        - master
