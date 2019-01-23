@@ -1,15 +1,20 @@
+"""'Bob' from exercism.io"""
+
 import re
 
-def hey(phrase):
-    phrase   = phrase.strip()
-    question = re.compile(r'.*\?$')
-    letters  = ''.join([l for l in phrase if re.match(r'\w', l)])
-    yelling  = False
 
-    if (True == letters.isupper()):
+def hey(phrase):
+    """Core bob function... issues a reply to 'phrase'."""
+
+    phrase = phrase.strip()
+    question = re.compile(r'.*\?$')
+    letters = ''.join([l for l in phrase if re.match(r'\w', l)])
+    yelling = False
+
+    if (letters.isupper() is True):
         yelling = True
 
-    if (True == yelling):
+    if (yelling is True):
         if (question.match(phrase)):
             return "Calm down, I know what I'm doing!"
         else:
@@ -20,6 +25,5 @@ def hey(phrase):
 
     if (letters.strip() == ''):
         return 'Fine. Be that way!'
-
 
     return 'Whatever.'

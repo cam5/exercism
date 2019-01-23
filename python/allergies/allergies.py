@@ -16,6 +16,7 @@ def dec_to_bin(decimal):
     """Represent a decimal as binary, and strip off the 0b at front."""
     return bin(decimal)[2:]
 
+
 class Allergies(object):
     """class to test allergies"""
 
