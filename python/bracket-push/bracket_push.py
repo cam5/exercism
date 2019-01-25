@@ -1,4 +1,4 @@
-"""bracket-push module for exercism"""
+"""bracket-push module for exercism.io"""
 
 OPENING_CHARS = ('[', '{', '(')
 CLOSING_CHARS = (']', '}', ')')
