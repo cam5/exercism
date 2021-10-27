@@ -4,3 +4,5 @@ python/*/*.pyc
 .pytest_cache
 javascript/node_modules
 php/vendor
+*/*/.exercism
+lua/*/.busted

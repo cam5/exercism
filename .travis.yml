@@ -23,6 +23,17 @@ matrix:
               - cd javascript
           install:
               - npm install
+
+        - language: lua
+          python:
+              - "5.4"
+          before_install:
+              - luarocks install busted
+              - cd lua/hello-world
+          script:
+              - busted
+
+          script: pytest
 branches:
     only:
         - master
