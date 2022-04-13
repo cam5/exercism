@@ -1,7 +1,6 @@
 local house = {}
 
 subjects = {
-  { subject = 'Jack' },
   { subject = 'house', action = 'built' },
   { subject = 'malt', action = 'lay in' },
   { subject = 'rat', action = 'ate' },
@@ -17,27 +16,25 @@ subjects = {
 }
 
 house.verse = function(which)
-  if which == 1 then
-    return 'This is the house that Jack built.'
-  end
-end
+  local all = {}
 
-house.recite = function()
-  all = {}
-
-  for i = 2, (#subjects + 1) do
+  for i = 1, which do
     table.insert(
       all,
       string.format(
-        '%s that %s the %s',
+        '%s that %s %s',
         subjects[i].subject,
-        subjects[i].action,
-        (subjects[i - 1]) and (subjects[i - 1].subject) or 'Jack'
+        (subjects[i - 1]) and (subjects[i - 1].subject) or 'Jack',
+        subjects[i].action
       )
     )
   end
 
-  return table.concat(all, '\n')
+  return 'This is the ' .. table.concat(all, '\n') .. '.'
+end
+
+house.recite = function()
+  return ''
 end
 
 return house
