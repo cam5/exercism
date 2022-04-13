@@ -18,19 +18,28 @@ subjects = {
 house.verse = function(which)
   local all = {}
 
-  for i = 1, which do
+  for iteration = 1, which do
+    local index = (which - iteration + 1)
+
+    local action = subjects[index].action
+    local subject = subjects[index].subject
+    local target = (subjects[index - 1]) and (subjects[index - 1].subject) or 'Jack'
+
+    local secondArg = (iteration == 1 and target or action)
+    local thirdArg = (iteration == 1 and action or target)
+
     table.insert(
       all,
       string.format(
-        '%s that %s %s',
-        subjects[i].subject,
-        (subjects[i - 1]) and (subjects[i - 1].subject) or 'Jack',
-        subjects[i].action
+        'the %s that %s %s',
+        subject,
+        secondArg,
+        thirdArg
       )
     )
   end
 
-  return 'This is the ' .. table.concat(all, '\n') .. '.'
+  return 'This is ' .. table.concat(all, '\n') .. '.'
 end
 
 house.recite = function()
