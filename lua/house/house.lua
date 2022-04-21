@@ -25,21 +25,17 @@ house.verse = function(which)
     local subject = subjects[index].subject
     local target = (subjects[index - 1]) and (subjects[index - 1].subject) or 'Jack'
 
-    local secondArg = (iteration == 1 and target or action)
-    local thirdArg = (iteration == 1 and action or target)
-
     table.insert(
       all,
       string.format(
-        'the %s that %s %s',
+        '%s that %s',
         subject,
-        secondArg,
-        thirdArg
+        target
       )
     )
   end
 
-  return 'This is ' .. table.concat(all, '\n') .. '.'
+  return 'This is the ' .. table.concat(all, '\n') .. ' built.'
 end
 
 house.recite = function()
