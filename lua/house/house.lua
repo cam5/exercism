@@ -1,6 +1,6 @@
 local house = {}
 
-subjects = {
+lines = {
   { subject = 'house', action = 'built' },
   { subject = 'malt', action = 'lay in' },
   { subject = 'rat', action = 'ate' },
@@ -15,27 +15,38 @@ subjects = {
   { subject = 'horse and the hound and the horn', action = 'belonged to' }
 }
 
-house.verse = function(which)
-  local all = {}
+house.verse = function(verseNumber)
+  -- "scope" in lua works differently than I expected!
+  -- global by default, and `local` keyword only makes it scoped to a block
+  -- https://www.lua.org/pil/4.2.html
+  local all = {
+    'This is the ' .. lines[verseNumber].subject,
+  }
 
-  for iteration = 1, which do
-    local index = (which - iteration + 1)
+  -- arrays/tables are 1-indexed in lua
+  for iteration = 1, verseNumber do
+    local targetLine = (verseNumber - iteration + 1)
+    local verseObjects = lines[targetLine]
 
-    local action = subjects[index].action
-    local subject = subjects[index].subject
-    local target = (subjects[index - 1]) and (subjects[index - 1].subject) or 'Jack'
+    print(targetLine)
 
-    table.insert(
-      all,
-      string.format(
-        '%s that %s',
-        subject,
-        target
+    if iteration > verseNumber then
+      table.insert(
+        all,
+        'that ' .. verseObjects.action .. ' the ' .. lines[targetLine].subject
       )
-    )
+    else
+      table.insert(all, 'that Jack ' .. verseObjects.action .. '.')
+    end
   end
 
-  return 'This is the ' .. table.concat(all, '\n') .. ' built.'
+  local glueChar = '\n'
+
+  if verseNumber == 1 then
+    glueChar = ' '
+  end
+
+  return table.concat(all, glueChar)
 end
 
 house.recite = function()
