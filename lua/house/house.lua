@@ -16,37 +16,25 @@ lines = {
 }
 
 house.verse = function(verseNumber)
-  -- "scope" in lua works differently than I expected!
-  -- global by default, and `local` keyword only makes it scoped to a block
-  -- https://www.lua.org/pil/4.2.html
-  local all = {
-    'This is the ' .. lines[verseNumber].subject,
-  }
+  local verse = ''
 
   -- arrays/tables are 1-indexed in lua
   for iteration = 1, verseNumber do
     local targetLine = (verseNumber - iteration + 1)
     local verseObjects = lines[targetLine]
 
-    print(targetLine)
+    if iteration == 1 then
+      verse = 'This is the ' .. lines[verseNumber].subject
+    end
 
-    if iteration > verseNumber then
-      table.insert(
-        all,
-        'that ' .. verseObjects.action .. ' the ' .. lines[targetLine].subject
-      )
+    if iteration < verseNumber then
+      verse = verse .. '\nthat ' .. verseObjects.action .. ' the ' .. lines[targetLine - 1].subject
     else
-      table.insert(all, 'that Jack ' .. verseObjects.action .. '.')
+      verse = verse .. ' that Jack ' .. lines[targetLine].action .. '.'
     end
   end
 
-  local glueChar = '\n'
-
-  if verseNumber == 1 then
-    glueChar = ' '
-  end
-
-  return table.concat(all, glueChar)
+  return verse
 end
 
 house.recite = function()
