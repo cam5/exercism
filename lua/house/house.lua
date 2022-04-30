@@ -38,7 +38,13 @@ house.verse = function(verseNumber)
 end
 
 house.recite = function()
-  return ''
+  local verses = {}
+
+  for i = 1, #lines do
+    table.insert(verses, house.verse(i))
+  end
+
+  return table.concat(verses, '\n')
 end
 
 return house
