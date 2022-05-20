@@ -40,5 +40,15 @@ return function(i)
     return matrix.rows[i]
   end
 
+  matrix.column = function(i)
+    local col = {}
+
+    for row_index,row in pairs(matrix.rows) do
+      table.insert(col, matrix.rows[row_index][i])
+    end
+
+    return col
+  end
+
   return matrix
 end
