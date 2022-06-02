@@ -9,6 +9,8 @@
   methods & data instantiated by the "constructor".
 --]]
 
+require "json-lua"
+
 Matrix = {}
 Matrix_mt = { __index = Matrix }
 
